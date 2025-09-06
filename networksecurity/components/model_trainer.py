@@ -27,13 +27,12 @@ import mlflow
 from urllib.parse import urlparse
 
 import dagshub
-dagshub.init(repo_owner='THOWFI', repo_name='Network-Security', mlflow=True)
+#dagshub.init(repo_owner='thowfiq03', repo_name='networksecurity', mlflow=True)
 
-"""
-os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/thowfiq03/networksecurity.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="thowfiq03"
 os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
-"""
+
 
 
 
@@ -47,10 +46,8 @@ class ModelTrainer:
             raise NetworkSecurityException(e,sys)
         
     def track_mlflow(self,best_model,classificationmetric):
-        """
-        mlflow.set_registry_uri("https://dagshub.com/krishnaik06/networksecurity.mlflow")
+        mlflow.set_registry_uri("https://dagshub.com/thowfiq03/networksecurity.mlflow")
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-        """
         with mlflow.start_run():
             f1_score=classificationmetric.f1_score
             precision_score=classificationmetric.precision_score
@@ -62,8 +59,9 @@ class ModelTrainer:
             mlflow.log_metric("precision",precision_score)
             mlflow.log_metric("recall_score",recall_score)
             mlflow.sklearn.log_model(best_model,"model")
-            """
             # Model registry does not work with file store
+
+
             if tracking_url_type_store != "file":
 
                 # Register the model
@@ -73,7 +71,7 @@ class ModelTrainer:
                 mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
             else:
                 mlflow.sklearn.log_model(best_model, "model")
-            """
+
 
         
     def train_model(self,X_train,y_train,x_test,y_test):
