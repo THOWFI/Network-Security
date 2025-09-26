@@ -135,14 +135,14 @@ Open `networksecurity/constant/training_pipeline/__init__.py` and review:
     
 # Clone 
 `
-git clone https://github.com/THOWFI/Network-Security.git    
-cd Network-Security    
+git clone https://github.com/THOWFI/Network-Security.git
+cd Network-Security
 `
     
 # Setup venv    
 `
-python -m venv .venv    
-.venv\Scripts\activate   # Windows    
+python -m venv .venv
+.venv\Scripts\activate   # Windows
 source .venv/bin/activate # Linux/Mac    
  `
  
@@ -232,12 +232,12 @@ ssh -i "your-key.pem" ubuntu@<EC2-IP>
  `   
 # Install Docker
 `
-sudo apt-get update -y    
-sudo apt-get upgrade -y    
-curl -fsSL https://get.docker.com -o get-docker.sh    
-sudo sh get-docker.sh    
-sudo usermod -aG docker ubuntu    
-newgrp docker    
+sudo apt-get update -y
+sudo apt-get upgrade -y
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker ubuntu
+newgrp docker
 docker --version    
  `
  
@@ -255,16 +255,16 @@ aws ecr get-login-password --region $AWS_REGION \
     
 # Build & Push image   
 `
-docker build -t $ECR_REPOSITORY_NAME:latest .    
-docker tag $ECR_REPOSITORY_NAME:latest $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest    
+docker build -t $ECR_REPOSITORY_NAME:latest .
+docker tag $ECR_REPOSITORY_NAME:latest $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest
 docker push $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest    
     `
     
 # Run container  
 `
-docker run -d --name netsec -p 5000:5000 \    
-  --env-file .env \    
-  $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest    
+docker run -d --name netsec -p 5000:5000 \
+    --env-file .env \
+    $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest    
   `
   
 # Health check   
@@ -278,13 +278,13 @@ curl http://127.0.0.1:5000/train
     
 # Push local Artifacts/ to S3   
 `
-python -c "from networksecurity.cloud.s3_syncer import S3Sync as S; \    
+python -c "from networksecurity.cloud.s3_syncer import S3Sync as S; \
 S().sync_folder_to_s3('Artifacts','s3://your-bucket/networksecurity')"    
     `
     
 # Pull from S3 
 `
-python -c "from networksecurity.cloud.s3_syncer import S3Sync as S; \    
+python -c "from networksecurity.cloud.s3_syncer import S3Sync as S; \
 S().sync_folder_from_s3('Artifacts','s3://your-bucket/networksecurity')"    
  `
    
