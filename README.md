@@ -166,12 +166,12 @@ python push_data.py
 python main.py    
     
 # Artifacts generated under Artifacts/<timestamp>/    
-#   - data_ingestion/    
-#   - data_validation/    
-#   - data_transformation/    
-#   - model_trainer/    
-#   - model_evaluation/    
-#   - model_pusher/    
+   - data_ingestion/    
+   - data_validation/    
+   - data_transformation/    
+   - model_trainer/    
+   - model_evaluation/    
+   - model_pusher/    
     
 ---    
     
